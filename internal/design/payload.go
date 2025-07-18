@@ -194,3 +194,89 @@ var ListSchemaResponse = dsl.Type("ListSchemaResponse", func() {
 
 	dsl.Required("schemas", "totalResults", "itemsPerPage", "startIndex", "Resources")
 })
+
+var ListResourceResponse = dsl.Type("ListResourceResponse", func() {
+	dsl.Description("SCIM List Response format")
+	dsl.Attribute("schemas", dsl.ArrayOf(dsl.String), func() {
+		dsl.Description("List of URNs of the schema definitions that apply to the payload")
+		dsl.Example([]string{"urn:ietf:params:scim:api:messages:2.0:ListResponse"})
+	})
+	dsl.Attribute("totalResults", dsl.UInt, func() {
+		dsl.Description("Total number of results matching the query")
+		dsl.Example(2)
+	})
+	dsl.Attribute("itemsPerPage", dsl.UInt, func() {
+		dsl.Description("Number of resources returned per page")
+		dsl.Example(2)
+	})
+	dsl.Attribute("startIndex", dsl.UInt, func() {
+		dsl.Description("The 1-based index of the first result in the current page")
+		dsl.Example(1)
+	})
+	dsl.Attribute("Resources", dsl.ArrayOf(ResourceType), func() {
+		dsl.Description("List of SCIM resources (User, Group, etc.)")
+	})
+
+	dsl.Required("schemas", "totalResults", "itemsPerPage", "startIndex", "Resources")
+})
+
+var ResourceType = dsl.Type("ResourceType", func() {
+	dsl.Description("SCIM ResourceType definition")
+
+	dsl.Attribute("schemas", dsl.ArrayOf(dsl.String), func() {
+		dsl.Example([]string{"urn:ietf:params:scim:schemas:core:2.0:ResourceType"})
+	})
+	dsl.Attribute("id", dsl.String, func() {
+		dsl.Description("The resource type identifier")
+		dsl.Example("User")
+	})
+	dsl.Attribute("name", dsl.String, func() {
+		dsl.Description("The resource type name")
+		dsl.Example("User")
+	})
+	dsl.Attribute("endpoint", dsl.String, func() {
+		dsl.Description("The endpoint path")
+		dsl.Example("/Users")
+	})
+	dsl.Attribute("description", dsl.String, func() {
+		dsl.Description("A human-readable description")
+		dsl.Example("User Account")
+	})
+	dsl.Attribute("schema", dsl.String, func() {
+		dsl.Description("The primary schema URI")
+		dsl.Example("urn:ietf:params:scim:schemas:core:2.0:User")
+	})
+	dsl.Attribute("schemaExtensions", dsl.ArrayOf(SchemaExtension), func() {
+		dsl.Description("Additional schema URIs required by this resource")
+	})
+	dsl.Attribute("meta", ResourceMeta, func() {
+		dsl.Description("Metadata about the resource")
+	})
+
+	dsl.Required("schemas", "id", "name", "endpoint", "description", "schema", "meta")
+})
+
+var SchemaExtension = dsl.Type("SchemaExtension", func() {
+	dsl.Description("SCIM schema extension info")
+	dsl.Attribute("schema", dsl.String, func() {
+		dsl.Description("The URI of the extension schema")
+		dsl.Example("urn:ietf:params:scim:schemas:extension:enterprise:2.0:User")
+	})
+	dsl.Attribute("required", dsl.Boolean, func() {
+		dsl.Description("Whether the extension is required")
+		dsl.Example(true)
+	})
+	dsl.Required("schema", "required")
+})
+
+var ResourceMeta = dsl.Type("ResourceMeta", func() {
+	dsl.Description("Metadata about a SCIM resource")
+	dsl.Attribute("resourceType", dsl.String, func() {
+		dsl.Example("ResourceType")
+	})
+	dsl.Attribute("location", dsl.String, func() {
+		dsl.Description("The URI of the resource")
+		dsl.Example("https://scim.example.com/{tenant_id}/scim/v2/ResourceTypes/User")
+	})
+	dsl.Required("resourceType", "location")
+})
