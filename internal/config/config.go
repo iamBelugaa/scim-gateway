@@ -1,7 +1,9 @@
 // Package config defines configuration types used across the service.
 package config
 
-import "time"
+import (
+	"time"
+)
 
 // Environment defines the type for representing different runtime environments.
 type Environment string
@@ -11,6 +13,18 @@ var (
 	EnvironmentProduction  Environment = "PRODUCTION"
 	EnvironmentDevelopment Environment = "DEVELOPMENT"
 )
+
+// String returns string representation of the Environment.
+func (e Environment) String() string {
+	switch e {
+	case EnvironmentProduction:
+		return "production"
+	case EnvironmentDevelopment:
+		return "development"
+	default:
+		return "development"
+	}
+}
 
 // Logging holds settings for how logging should behave in different environments.
 type Logging struct {
