@@ -21,22 +21,50 @@ var _ = dsl.Service("scim", func() {
 	dsl.Method("ServiceProviderConfig", func() {
 		dsl.Description("Retrieves service provider's configuration metadata including supported SCIM features and authentication schemes.")
 
-		// Request body must include the API key for authentication.
-		dsl.Payload(ServiceProviderRequest)
-
-		// Successful response returns ServiceProviderConfigResponse with supported features.
+		dsl.Payload(StaticTokenAuthRequest)
 		dsl.Result(ServiceProviderConfigResponse)
 
 		dsl.HTTP(func() {
-			// Define the HTTP method and path for this operation.
 			dsl.GET("/ServiceProviderConfig")
-
-			// Map the API key from the request payload to a header named X-API-KEY.
 			dsl.Header("apiKey:X-API-KEY")
-
-			// Define the HTTP 200 OK response and bind it to the result type.
 			dsl.Response(dsl.StatusOK, func() {
 				dsl.Body(ServiceProviderConfigResponse)
+			})
+		})
+	})
+
+	// Method for retrieving supported schemas.
+	dsl.Method("ListSchemas", func() {
+		dsl.Description("Retrieve the supported schemas.")
+
+		dsl.Payload(StaticTokenAuthRequest)
+		dsl.Result(ListSchemaResponse)
+
+		dsl.HTTP(func() {
+			dsl.GET("/Schemas")
+			dsl.Header("apiKey:X-API-KEY")
+			dsl.Response(dsl.StatusOK, func() {
+				dsl.Body(ListSchemaResponse)
+			})
+		})
+	})
+
+	// Method for retrieving a specific schema by ID.
+	dsl.Method("GetSchema", func() {
+		dsl.Description("Retrieve a specific schema by its ID.")
+
+		dsl.Payload(func() {
+			dsl.Extend(StaticTokenAuthRequest)
+			dsl.Attribute("id", dsl.String, "Schema ID")
+			dsl.Required("id")
+		})
+		dsl.Result(SCIMSchema)
+
+		dsl.HTTP(func() {
+			dsl.GET("/Schemas/{id}")
+			dsl.Header("apiKey:X-API-KEY")
+			dsl.Response(dsl.StatusOK, func() {
+				dsl.Body(SCIMSchema)
 			})
 		})
 	})
