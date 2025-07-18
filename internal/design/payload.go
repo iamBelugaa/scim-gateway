@@ -110,7 +110,6 @@ var SCIMAttribute = dsl.Type("SCIMAttribute", func() {
 	dsl.Attribute("uniqueness", dsl.String, "Specifies how the attribute value is unique across the service provider")
 	dsl.Attribute("canonicalValues", dsl.ArrayOf(dsl.String), "List of canonical values for the attribute")
 	dsl.Attribute("referenceTypes", dsl.ArrayOf(dsl.String), "Valid SCIM resource types if this is a reference")
-	// dsl.Attribute("subAttributes", dsl.ArrayOf(SCIMAttribute), "List of sub attributes if this is a complex attribute")
 
 	dsl.Required("name", "type", "multiValued", "description", "required", "mutability", "returned")
 })
