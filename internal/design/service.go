@@ -68,4 +68,20 @@ var _ = dsl.Service("scim", func() {
 			})
 		})
 	})
+
+	// Method for retrieving resource types.
+	dsl.Method("ResourceTypes", func() {
+		dsl.Description("Retrieve the supported resource types.")
+
+		dsl.Payload(StaticTokenAuthRequest)
+		dsl.Result(ListResourceResponse)
+
+		dsl.HTTP(func() {
+			dsl.GET("/ResourceTypes")
+			dsl.Header("apiKey:X-API-KEY")
+			dsl.Response(dsl.StatusOK, func() {
+				dsl.Body(ListResourceResponse)
+			})
+		})
+	})
 })
