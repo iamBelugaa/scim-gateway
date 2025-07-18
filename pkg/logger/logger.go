@@ -65,3 +65,8 @@ func NewWithConfig(appConfig *config.Application, logConfig *config.Logging) (*L
 		).Sugar(),
 	}, nil
 }
+
+// Close ensures that any buffered logs are flushed to the output.
+func (l *Logger) Close() error {
+	return l.Sync()
+}

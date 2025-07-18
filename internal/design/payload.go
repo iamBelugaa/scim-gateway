@@ -170,7 +170,7 @@ var ListSchemaResponse = dsl.Type("ListSchemaResponse", func() {
 	dsl.Attribute("totalResults", dsl.Int, "Total number of results")
 	dsl.Attribute("itemsPerPage", dsl.Int, "Number of items per page")
 	dsl.Attribute("startIndex", dsl.Int, "Starting index of returned items")
-	dsl.Attribute("Resources", dsl.ArrayOf(SCIMSchema), "Array of SCIM schemas")
+	dsl.Attribute("resources", dsl.ArrayOf(SCIMSchema), "Array of SCIM schemas")
 
 	dsl.Example(map[string]any{
 		"schemas":      []string{"urn:ietf:params:scim:api:messages:2.0:ListResponse"},
@@ -191,7 +191,7 @@ var ListSchemaResponse = dsl.Type("ListSchemaResponse", func() {
 		},
 	})
 
-	dsl.Required("schemas", "totalResults", "itemsPerPage", "startIndex", "Resources")
+	dsl.Required("schemas", "totalResults", "itemsPerPage", "startIndex", "resources")
 })
 
 var ListResourceResponse = dsl.Type("ListResourceResponse", func() {
