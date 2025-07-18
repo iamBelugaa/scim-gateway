@@ -25,3 +25,15 @@ var API = dsl.API("scim", func() {
 		})
 	})
 })
+
+// JWTAuth defines a security scheme that uses JWTs.
+var JWTAuth = dsl.JWTSecurity("JWTAuth", func() {
+	dsl.Description("Secures endpoint by requiring a valid JWT token")
+	dsl.Scope("api:read", "Read only access")
+	dsl.Scope("api:write", "Read and Write access")
+})
+
+// StaticTokenAuth defines a security scheme for the static bearer token.
+var StaticTokenAuth = dsl.APIKeySecurity("StaticTokenAuth", func() {
+	dsl.Description("Secures SCIM endpoints with a static Bearer token generated for a service account")
+})
