@@ -6,6 +6,8 @@
     "Infow",
     "multierr",
     "oauthbearertoken",
-    "scim"
+    "scim",
+    "scimattribute",
+    "scimsvc"
   ]
 }
