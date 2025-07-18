@@ -246,27 +246,11 @@ var ResourceType = dsl.Type("ResourceType", func() {
 		dsl.Description("The primary schema URI")
 		dsl.Example("urn:ietf:params:scim:schemas:core:2.0:User")
 	})
-	dsl.Attribute("schemaExtensions", dsl.ArrayOf(SchemaExtension), func() {
-		dsl.Description("Additional schema URIs required by this resource")
-	})
 	dsl.Attribute("meta", ResourceMeta, func() {
 		dsl.Description("Metadata about the resource")
 	})
 
 	dsl.Required("schemas", "id", "name", "endpoint", "description", "schema", "meta")
-})
-
-var SchemaExtension = dsl.Type("SchemaExtension", func() {
-	dsl.Description("SCIM schema extension info")
-	dsl.Attribute("schema", dsl.String, func() {
-		dsl.Description("The URI of the extension schema")
-		dsl.Example("urn:ietf:params:scim:schemas:extension:enterprise:2.0:User")
-	})
-	dsl.Attribute("required", dsl.Boolean, func() {
-		dsl.Description("Whether the extension is required")
-		dsl.Example(true)
-	})
-	dsl.Required("schema", "required")
 })
 
 var ResourceMeta = dsl.Type("ResourceMeta", func() {
