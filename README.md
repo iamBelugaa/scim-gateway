@@ -1,6 +1,6 @@
 # SCIM Gateway Service
 
-A service providing a **SCIM v2.0-compliant** interface for user and group
+A service providing a **SCIM v2.0** compliant interface for user and group
 management, built using [Goa](https://goa.design/) design-first microservice
 framework.
 
